@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<header>
+    <!-- Ссылки "About Us" и "Contacts" -->
+    <nav class="navigation">
+        <center>
+            <a href="{% url 'main:index' %}"><-Back to Main-</a>
+            <a href="/about">-About-</a>
+            <a href="/contacts">-Contacts-</a>
+            <a href="/cart">-Cart-</a>
+            <a href="/admin">-DEV-</a>
+        </center>
+    </nav>
+</header>
+<body>
+
+<center>
+    <h1>{{title}}</h1>
+
+<div class="container">
+    {% for product in goods %}
+    <div class="card">
+        <a href="{% url 'showcase:product' %}?name={{ product.name }}">
+        <img src="{{ product.product_images.first.image.url }}" alt="Product Image" class="product-image">
+        </a>
+        <div class="card-body">
+            <h2>{{ product.name }}</h2>
+
+            <a href="{% url 'showcase:catalog' %}?brand={{ product.brand }}">
+                <p class="brand"> {{ product.brand }}</p></a>
+                <span>{% if selected_category == 'ALL' %}
+                    <a href="{% url 'showcase:catalog' %}?category={{ product.category }}">
+                        <p class="category"> {{ product.category }}</p>
+                    </a>
+                {% endif %}</span>
+            <p class="price"> {{ product.price }} ₽</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</center>
+
+</body>
+</html>
