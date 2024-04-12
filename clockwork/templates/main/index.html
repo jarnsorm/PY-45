@@ -8,7 +8,16 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
     <title>{{ title }}</title>
     <style>
-        /* Стили CSS */
+        html {
+        background-image: url({% static 'CW.png' %});
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        -webkit-background-size: 50%;
+        -moz-background-size: 50%;
+        -o-background-size: 50%;
+        background-size: 50%;
+    }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -75,6 +84,5 @@
         </div>
     </div>
 </div>
-<center><img src="{% static 'back.png' %}" class="back"></center>
 </body>
 </html>

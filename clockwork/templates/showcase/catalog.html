@@ -7,6 +7,18 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
     <title>{{title}}</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        html {
+        background-image: url({% static 'CW_blured.png' %});
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        -webkit-background-size: 50%;
+        -moz-background-size: 50%;
+        -o-background-size: 50%;
+        background-size: 50%;
+    }
+    </style>
 </head>
 <header>
     <!-- Ссылки "About Us" и "Contacts" -->
@@ -47,6 +59,5 @@
     {% endfor %}
 </div>
 </center>
-
 </body>
 </html>
