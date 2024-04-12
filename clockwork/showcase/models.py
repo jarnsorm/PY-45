@@ -46,9 +46,8 @@ class Products(models.Model):
 
 class Images(models.Model):
     image = models.ImageField(blank=True, null=True)
-    name = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='product_images')
+    product_name = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='product_images')
 
     class Meta:
         db_table = 'image'
         verbose_name = 'Image'
-        
