@@ -37,7 +37,7 @@
 <center>
     <h1>{{title}}</h1>
             {% for item in sorting_list.keys %}
-                <a href="{% url 'showcase:catalog' %}?order_by={{ item }}">{{ item }}</a>
+                <a href="{% url 'showcase:catalog' %}?category={{ selected_category }}&order_by={{ item }}">{{ item }}</a>
             {% endfor %}
 <div class="container">
     {% for product in goods %}

@@ -20,7 +20,7 @@ def about_us(request) -> HttpResponse:
 
 
 def contact_us(request) -> HttpResponse:
-    contact = 'https://github.com/jarnsorm'
+    contact = '<a href="https://github.com/jarnsorm">My GitHub profile</a>'
     return HttpResponse(contact)
 
 

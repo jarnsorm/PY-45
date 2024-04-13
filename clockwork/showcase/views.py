@@ -36,8 +36,9 @@ def catalog(request) -> HttpResponse:
         "title": title,
         "goods": goods,
         "categories": categories,
-        # "selected_category": selected_category,
-        "sorting_list": sorting_list
+        "selected_category": selected_category,
+        "sorting_list": sorting_list,
+        "order_by": selected_sorting
 
     }
     return render(request, "showcase/catalog.html", context)
