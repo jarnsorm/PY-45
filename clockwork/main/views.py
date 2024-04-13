@@ -25,4 +25,4 @@ def contact_us(request) -> HttpResponse:
 
 
 def cart(request) -> HttpResponse:
-    return HttpResponse('Cart')
+    return HttpResponse('Cart: Work In Progress')
