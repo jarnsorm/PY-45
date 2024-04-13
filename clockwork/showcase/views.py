@@ -6,16 +6,28 @@ from showcase.models import Products, Categories
 def catalog(request) -> HttpResponse:
     selected_category = request.GET.get('category', 'ALL')
     selected_brand = request.GET.get('brand')
+    if request.GET.get('order_by') is None:
+        selected_sorting = 'Random'
+    else:
+        selected_sorting = request.GET.get('order_by')
+
+    sorting_list = {
+        'Random': '?',
+        'Asc Price': 'price',
+        'Dec Price': '-price',
+        'Name': 'name',
+        'Brand': 'brand'
+    }
 
     if selected_category == 'ALL':
-        goods = Products.objects.all().order_by('?')
+        goods = Products.objects.all().order_by(sorting_list[selected_sorting])
         title = 'All products'
     else:
-        goods = Products.objects.filter(category__name=selected_category).order_by('?')
+        goods = Products.objects.filter(category__name=selected_category).order_by(sorting_list[selected_sorting])
         title = selected_category
 
     if selected_brand is not None:
-        goods = Products.objects.filter(brand=selected_brand).order_by('?')
+        goods = Products.objects.filter(brand=selected_brand).order_by(sorting_list[selected_sorting])
         title = selected_brand
 
     categories = Categories.objects.all()
@@ -24,7 +36,8 @@ def catalog(request) -> HttpResponse:
         "title": title,
         "goods": goods,
         "categories": categories,
-        "selected_category": selected_category
+        # "selected_category": selected_category,
+        "sorting_list": sorting_list
 
     }
     return render(request, "showcase/catalog.html", context)
