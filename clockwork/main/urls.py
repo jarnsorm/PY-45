@@ -3,16 +3,14 @@ from main import views
 from django.contrib import admin
 from django.urls import path
 
-from clockwork import settings
-from django.conf.urls.static import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from main.views import About, Contact
 
 app_name = 'main'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('about/', views.about_us, name='about'),
-    path('contacts/', views.contact_us, name='contacts'),
+    path('about/', About.as_view(), name='about'),
+    path('contact/', Contact.as_view(), name='contact'),
     path('cart/', views.cart, name='cart'),
     ]

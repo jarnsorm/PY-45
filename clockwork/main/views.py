@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 from showcase.models import Categories
 
@@ -11,17 +12,27 @@ def index(request) -> HttpResponse:
         'title': title,
         'categories': categories
     }
-    return render(request, 'main/index.html', context)
+    return render(request, 'main/catalog.html', context)
 
 
-def about_us(request) -> HttpResponse:
-    info = "The watch store 'ClockWork' website is an educational project by JarnSorm"
-    return HttpResponse(info)
+class About(TemplateView):
+    template_name = 'main/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'About Us'
+        context['content'] = "The watch store 'ClockWork' website is an educational project by JarnSorm"
+        return context
 
 
-def contact_us(request) -> HttpResponse:
-    contact = '<a href="https://github.com/jarnsorm">My GitHub profile</a>'
-    return HttpResponse(contact)
+class Contact(TemplateView):
+    template_name = 'main/contact.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Contact'
+        context['content'] = {'ref': 'https://github.com/jarnsorm', 'kword': 'My GitHub profile'}
+        return context
 
 
 def cart(request) -> HttpResponse:

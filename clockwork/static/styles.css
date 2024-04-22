@@ -2,6 +2,24 @@ header {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    padding: 20px;
+    text-align: right;
+}
+aside {
+    width: 200px; /* Ширина сайдбара */
+    height: 100%; /* Высота сайдбара, чтобы он занимал всю высоту экрана */
+    position: fixed; /* Фиксированная позиция, чтобы сайдбар оставался видимым при прокрутке */
+    top: 0; /* Положение сверху */
+    left: 0; /* Положение слева */
+    background-color: #f0f0f0; /* Цвет фона сайдбара */
+    padding: 20px; /* Отступы внутри сайдбара */
+    box-sizing: border-box; /* Учитывать padding внутри заданной ширины */
+}
+
+main {
+    margin-left: 220px; /* Ширина сайдбара плюс отступ между сайдбаром и основным контентом */
+    padding: 20px; /* Отступы внутри основного контента */
+    box-sizing: border-box; /* Учитывать padding внутри заданной ширины */
 }
 
 .container {
@@ -21,7 +39,8 @@ header {
 }
 
 .product_card {
-    width: 100%;
+    flex: 1; /* Занимает все доступное пространство в строке */
+    margin-left: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
@@ -32,14 +51,31 @@ header {
 .product-image {
     width: auto;
     height: 60%;
+    margin-top: 5%;
 
 }
 
 .sub-product-image {
     width: auto;
     height: 500px;
-    border-bottom: 1px solid #ccc;
+    margin-top: 30px;
 }
+
+.viewed_product-image {
+    width: auto;
+    height: 100px;
+    margin-top: 10px;
+
+}
+
+.viewed_card {
+    width: 90%;
+    height: width;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
 
 
 .card-body {
@@ -63,16 +99,11 @@ h2 {
 }
 
 div.background {
-
-position: fixed;
-
-top: 100%;
-
-left: 0%;
-
-width: 200%;
-
-height: auto%;
-
+    position: fixed;
+    top: 100%;
+    left: 0%;
+    width: 200%;
+    height: auto%;
 }
+
 

@@ -133,3 +133,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# BACKEND для хранения сеансов
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+# сохранение сеансов при каждом запросе
+SESSION_SAVE_EVERY_REQUEST = True
+# удаление данных сеанса при закрытии браузера
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

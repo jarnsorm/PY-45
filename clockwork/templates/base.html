@@ -1,0 +1,78 @@
+{% load static %}
+{% load admin_urls %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        html {
+        background-image: url({% static 'CW_blured.png' %});
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        -webkit-background-size: 50%;
+        -moz-background-size: 50%;
+        -o-background-size: 50%;
+        background-size: 50%;
+    }
+    </style>
+    <script>
+        function goBack() {
+        window.history.back();
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <ul>
+            {% for m in menu %}
+            <a href="{% url m.url_name %}">-{{ m.title }}-</a>
+            {% endfor %}
+        </ul>
+    </header>
+
+    <aside>
+        <button onclick="goBack()">Back</button>
+        <ul>
+            <li>
+                <a href="/">Main</a>
+            </li>
+            <br>
+            <span>Collections</span>
+            {% for c in collection %}
+                <li>
+                    <a href="{% url 'showcase:collection' col_slug=c.slug %}">{{ c.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <span>Last viewed:</span>
+        <div class="viewed_card">
+            <center>
+            {% for product_slug in request.session.viewed_products %}
+                {% with product=product_slug|get_product_from_slug %}
+                    {% if forloop.first %} {% endif %}{% if forloop.last %} {% endif %}
+                        <a href="{% url 'showcase:product' p_slug=product.slug %}">
+                        <img src="{{ product.product_images.first.image.url }}"
+                             alt="Product Image" class="viewed_product-image"></a>
+                        <p>{{ product.brand }} {{ product.name }}</p>
+                    {% endwith %}
+            {% endfor %}
+            </center>
+        </div>
+    </aside>
+
+    <main>
+        <center>
+            <h1>{{title}}</h1>
+        </center>
+        {% block content %}{% endblock %}
+    </main>
+
+</body>
+</html>

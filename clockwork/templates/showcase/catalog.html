@@ -1,65 +1,24 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
-    <title>{{title}}</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <style>
-        html {
-        background-image: url({% static 'CW_blured.png' %});
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-attachment: fixed;
-        -webkit-background-size: 50%;
-        -moz-background-size: 50%;
-        -o-background-size: 50%;
-        background-size: 50%;
-    }
-    </style>
-</head>
-<header>
-    <!-- Ссылки "About Us" и "Contacts" -->
-    <nav class="navigation">
-        <center>
-            <a href="{% url 'main:index' %}"><-Back to Main-</a>
-            <a href="/about">-About-</a>
-            <a href="/contacts">-Contacts-</a>
-            <a href="/cart">-Cart-</a>
-            <a href="/admin">-DEV-</a>
-        </center>
-    </nav>
-</header>
-<body>
+{% extends 'base.html' %}
 
-<center>
-    <h1>{{title}}</h1>
-            {% for item in sorting_list.keys %}
-                <a href="{% url 'showcase:catalog' %}?category={{ selected_category }}&order_by={{ item }}">{{ item }}</a>
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <center>
+        <div class="container">
+            {% for p in goods %}
+                <div class="card">
+                    <a href="{% url 'showcase:product' p_slug=p.slug %}">
+                        <img src="{{ p.product_images.first.image.url }}" alt="Product Image" class="product-image"></a>
+                    <div class="card-body">
+                        <h2>{{ p.name }}</h2>
+                        <a href="{% url 'showcase:brand' brand=p.brand %}">
+                            <p class="brand"> {{ p.brand }}</p></a>
+                        <p class="price"> {{ p.price }} ₽</p>
+                    </div>
+                </div>
             {% endfor %}
-<div class="container">
-    {% for product in goods %}
-    <div class="card">
-        <a href="{% url 'showcase:product' %}?name={{ product.name }}">
-        <img src="{{ product.product_images.first.image.url }}" alt="Product Image" class="product-image">
-        </a>
-        <div class="card-body">
-            <h2>{{ product.name }}</h2>
-
-            <a href="{% url 'showcase:catalog' %}?brand={{ product.brand }}">
-                <p class="brand"> {{ product.brand }}</p></a>
-                <span>{% if selected_category == 'ALL' %}
-                    <a href="{% url 'showcase:catalog' %}?category={{ product.category }}">
-                        <p class="category"> {{ product.category }}</p>
-                    </a>
-                {% endif %}</span>
-            <p class="price"> {{ product.price }} ₽</p>
         </div>
-    </div>
-    {% endfor %}
-</div>
-</center>
-</body>
-</html>
+    </center>
+{% endblock %}
