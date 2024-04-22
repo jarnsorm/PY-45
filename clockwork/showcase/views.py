@@ -108,7 +108,7 @@ class Contact(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Contact'
-        context['menu'] = menu[0]+menu[1:]
+        context['menu'] = menu
         context['collection'] = categories
         context['content'] = {'ref': 'https://github.com/jarnsorm', 'kword': 'My GitHub profile'}
         return context
