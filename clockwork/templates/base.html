@@ -9,18 +9,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <style>
-        html {
-        background-image: url({% static 'CW_blured.png' %});
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-attachment: fixed;
-        -webkit-background-size: 50%;
-        -moz-background-size: 50%;
-        -o-background-size: 50%;
-        background-size: 50%;
-    }
-    </style>
+    <link rel="stylesheet" href="{% static 'background.css' %}">
     <script>
         function goBack() {
         window.history.back();
@@ -31,28 +20,37 @@
 <body>
     <header>
         <ul>
-            {% for m in menu %}
-            <a href="{% url m.url_name %}">-{{ m.title }}-</a>
-            {% endfor %}
+            <img src="{% static 'account.png' %}" alt="Account" class="header-image">
+            <a href="{% url 'cart:cart_detail' %}">
+            {% if cart.total_quantity > 0 %}
+                <img src="{% static 'cart_upd.png' %}" alt="Cart" class="header-image">
+            {% else %}
+                <img src="{% static 'cart.png' %}" alt="Cart" class="header-image">
+            {% endif %}</a>
+            <a href="{% url 'showcase:about' %}">
+                <img src="{% static 'about.png' %}" alt="AboutUs" class="header-image"></a>
+            <a href="https://github.com/jarnsorm">
+                <img src="{% static 'git.png' %}" alt="GitHub" class="header-image"></a>
+            <a href="{% url 'admin:index' %}">
+                <img src="{% static 'dev.png' %}" alt="-Dev-" class="header-image"></a>
         </ul>
     </header>
 
     <aside>
-        <button onclick="goBack()">Back</button>
-        <ul>
-            <li>
-                <a href="/">Main</a>
-            </li>
+        <div class="container-menu">
+            <button onclick="goBack()">Back</button>
+            <div class="menu">
+                <a href="/">Main</a></div>
             <br>
             <span>Collections</span>
             {% for c in collection %}
-                <li>
+                <div class="menu">
                     <a href="{% url 'showcase:collection' col_slug=c.slug %}">{{ c.name }}</a>
-                </li>
+                </div>
             {% endfor %}
-        </ul>
-        <span>Last viewed:</span>
+        </div>
         <div class="viewed_card">
+            <p>Last viewed:</p>
             <center>
             {% for product_slug in request.session.viewed_products %}
                 {% with product=product_slug|get_product_from_slug %}
@@ -73,6 +71,9 @@
         </center>
         {% block content %}{% endblock %}
     </main>
+    <footer>
+        <img src="{% static 'back.png' %}" class="footer-image">
+    </footer>
 
 </body>
 </html>

@@ -69,6 +69,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'showcase.context_processors.collection',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -135,8 +137,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # BACKEND для хранения сеансов
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-# сохранение сеансов при каждом запросе
-SESSION_SAVE_EVERY_REQUEST = True
-# удаление данных сеанса при закрытии браузера
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+CART_SESSION_ID = 'cart'

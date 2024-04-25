@@ -1,0 +1,10 @@
+html {
+    background-image: url({% static 'CW_blured.png' %});
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: 50%;
+    -moz-background-size: 50%;
+    -o-background-size: 50%;
+    background-size: 50%;
+}

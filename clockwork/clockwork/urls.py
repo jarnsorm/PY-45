@@ -23,4 +23,5 @@ urlpatterns: list[URLResolver] = [
     path('admin/', admin.site.urls),
     # path('', include('main.urls', namespace='main')),
     path('', include('showcase.urls', namespace='showcase')),
+    path('cart/', include('cart.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,28 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 
 from showcase.models import Products, Categories
 from django.views.generic import ListView, DetailView, TemplateView
+from cart.forms import CartAddProductForm
 
-menu = [
-    {'title': 'About Us', 'url_name': 'showcase:about'},
-    {'title': 'Contact', 'url_name': 'showcase:contact'},
-    # {'title': 'Cart', 'url_name': 'cart:cart'},
-    {'title': 'DEV', 'url_name': 'admin:index'},
-    # {'title': 'My Account', 'url_name': 'login'},
-]
-
-categories = Categories.objects.all()
 
 class Catalog(ListView):
     model = Products
     template_name = 'showcase/catalog.html'
     context_object_name = 'goods'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.order_by('?')
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'ClockWork'
-        context['menu'] = menu
-        context['collection'] = categories
         context['col_selected'] = 0
         return context
 
@@ -36,13 +30,11 @@ class Collection(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = str(f"{context['goods'][0].brand} {context['goods'][0].category}")
-        context['menu'] = menu
-        context['collection'] = categories
         context['col_selected'] = context['goods'][0].category
         return context
 
     def get_queryset(self):
-        return Products.objects.filter(category__slug=self.kwargs['col_slug'])
+        return Products.objects.filter(category__slug=self.kwargs['col_slug']).order_by('?')
 
 
 class Brand(ListView):
@@ -54,8 +46,6 @@ class Brand(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = str(context['goods'][0].brand)
-        context['menu'] = menu
-        context['collection'] = categories
         context['brand_selected'] = context['goods'][0].brand
         return context
 
@@ -72,8 +62,6 @@ class Product(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = f"{context['product'].brand} {context['product'].name}"
-        context['menu'] = menu
-        context['collection'] = categories
         return context
 
     def get_queryset(self):
@@ -86,7 +74,8 @@ class Product(DetailView):
             viewed_products.append(product_slug)
         viewed_products = viewed_products[-3:]
         request.session['viewed_products'] = viewed_products
-        print(product_slug)
+        # product = get_object_or_404(Products, slug=product_slug)
+        # cart_product_form = CartAddProductForm()
         return super().get(request, *args, **kwargs)
 
 
@@ -96,8 +85,6 @@ class About(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'About Us'
-        context['menu'] = menu[1:]
-        context['collection'] = categories
         context['content'] = "The watch store 'ClockWork' website is an educational project by JarnSorm"
         return context
 
@@ -108,7 +95,5 @@ class Contact(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Contact'
-        context['menu'] = menu
-        context['collection'] = categories
         context['content'] = {'ref': 'https://github.com/jarnsorm', 'kword': 'My GitHub profile'}
         return context
