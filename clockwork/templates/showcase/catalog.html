@@ -5,20 +5,22 @@
 {% endblock %}
 
 {% block content %}
-    <center>
-        <div class="container">
-            {% for p in goods %}
-                <div class="card">
-                    <a href="{% url 'showcase:product' p_slug=p.slug %}">
-                        <img src="{{ p.product_images.first.image.url }}" alt="Product Image" class="product-image"></a>
-                    <div class="card-body">
-                        <h2>{{ p.name }}</h2>
-                        <a href="{% url 'showcase:brand' brand=p.brand %}">
-                            <p class="brand"> {{ p.brand }}</p></a>
-                        <p class="price"> {{ p.price }} ₽</p>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </center>
+
+<div class="container">
+
+    {% for p in goods %}<center>
+        <div class="card">
+            <a href="{% url 'showcase:product' p_slug=p.slug %}" class="product-link">
+                <img src="{{ p.product_images.first.image.url }}" alt="Product Image" class="product-image">
+                <p class="price">{{ p.price }} ₽</p></a>
+            <div class="card-body">
+                <a href="{% url 'showcase:brand' brand=p.brand %}">
+                    <p class="brand">{{ p.brand }}</p></a>
+                <h2>{{ p.name }}</h2>
+            </div>
+        </div></center>
+    {% endfor %}
+
+</div>
+
 {% endblock %}

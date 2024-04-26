@@ -9,7 +9,7 @@
     <div class="product_card">
         <img src="{{ product.product_images.first.image.url }}" class="sub-product-image">
         <div class="card-body">
-            <p class="price"> {{ product.price }} ₽</p>
+            <h2>{{ product.price }} ₽</h2>
             <form id="add-to-cart-form" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ product.id }}">

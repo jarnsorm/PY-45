@@ -1,8 +1,6 @@
-from django.shortcuts import get_object_or_404
-
-from showcase.models import Products, Categories
+from showcase.models import Products
 from django.views.generic import ListView, DetailView, TemplateView
-from cart.forms import CartAddProductForm
+
 
 
 class Catalog(ListView):
