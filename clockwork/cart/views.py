@@ -63,6 +63,7 @@ class CartDetailView(TemplateView):
         context['title'] = 'Your Cart'
         context['cart_items'] = cart_items
         context['total_price'] = total_price
+        context['has_items'] = len(cart_items) > 0
         return context
 
 def update_cart(request):

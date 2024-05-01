@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.urls import reverse
 
 
 class Categories(models.Model):
@@ -38,6 +39,9 @@ class Products(models.Model):
 
     def p_price(self):
         return self.price
+
+    def get_absolute_url(self):
+        return reverse('showcase:product', kwargs={'p_slug': self.slug})
 
     class Meta:
         db_table = 'product'

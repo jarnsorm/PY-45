@@ -1,8 +1,4 @@
-# import contact
-# from django.contrib import admin
 from django.urls import path
-
-# from showcase import views
 from showcase.views import Catalog, Collection, Product, About, Contact, Brand
 
 app_name = 'showcase'

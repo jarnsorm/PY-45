@@ -18,27 +18,52 @@
 </head>
 
 <body>
-    <header>
-        <ul>
+   <header>
+    <ul>
+        <li style="display: inline-block; vertical-align: middle; text-align: left;">
+            <form action="{% url 'main:search' %}" method="get">
+                <input type="text" name="q" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form>
+        </li>
+        <div style="vertical-align: top; text-align: right;">
+        <li style="display: inline-block;">
             <img src="{% static 'account.png' %}" alt="Account" class="header-image">
+        </li>
+        <li style="display: inline-block;">
             <a href="{% url 'cart:cart_detail' %}">
             {% if cart.total_quantity > 0 %}
                 <img src="{% static 'cart_upd.png' %}" alt="Cart" class="header-image">
             {% else %}
                 <img src="{% static 'cart.png' %}" alt="Cart" class="header-image">
-            {% endif %}</a>
+            {% endif %}
+            </a>
+        </li>
+        <li style="display: inline-block;">
             <a href="{% url 'showcase:about' %}">
-                <img src="{% static 'about.png' %}" alt="AboutUs" class="header-image"></a>
+                <img src="{% static 'about.png' %}" alt="AboutUs" class="header-image">
+            </a>
+        </li>
+        <li style="display: inline-block;">
             <a href="https://github.com/jarnsorm">
-                <img src="{% static 'git.png' %}" alt="GitHub" class="header-image"></a>
+                <img src="{% static 'git.png' %}" alt="GitHub" class="header-image">
+            </a>
+        </li>
+        <li style="display: inline-block;">
             <a href="{% url 'admin:index' %}">
-                <img src="{% static 'dev.png' %}" alt="-Dev-" class="header-image"></a>
-        </ul>
-    </header>
+                <img src="{% static 'dev.png' %}" alt="-Dev-" class="header-image">
+            </a>
+        </li>
+        </div>
+    </ul>
+</header>
+
+
+
 
     <aside>
         <div class="container-menu">
-            <button onclick="goBack()">Back</button>
+            <button onclick="history.back()">Back</button>
             <div class="menu">
                 <a href="/">Main</a></div>
             <br>
@@ -49,20 +74,22 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="viewed_card">
-            <p>Last viewed:</p>
-            <center>
-            {% for product_slug in request.session.viewed_products %}
-                {% with product=product_slug|get_product_from_slug %}
-                    {% if forloop.first %} {% endif %}{% if forloop.last %} {% endif %}
-                        <a href="{% url 'showcase:product' p_slug=product.slug %}">
-                        <img src="{{ product.product_images.first.image.url }}"
-                             alt="Product Image" class="viewed_product-image"></a>
-                        <p>{{ product.brand }} {{ product.name }}</p>
-                    {% endwith %}
-            {% endfor %}
-            </center>
-        </div>
+       <div class="viewed_card">
+    <p>Last viewed:</p>
+    <center>
+    {% for product_slug in request.session.viewed_products %}
+        {% with product=product_slug|get_product_from_slug %}
+            {% if product.slug %}
+                {% if forloop.first %} {% endif %}{% if forloop.last %} {% endif %}
+                    <a href="{% url 'showcase:product' p_slug=product.slug %}">
+                    <img src="{{ product.product_images.first.image.url }}"
+                         alt="Product Image" class="viewed_product-image"></a>
+                    <p>{{ product.brand }} {{ product.name }}</p>
+            {% endif %}
+        {% endwith %}
+    {% endfor %}
+    </center>
+</div>
     </aside>
 
     <main>
@@ -72,6 +99,9 @@
         {% block content %}{% endblock %}
     </main>
     <footer>
+        <div class="footer-text"><p>ClockWork project created for educational purposes.
+            All presented products and information about them are of an abstract nature.
+            Any similarities with existing brands and names are purely coincidental.</p></div>
         <img src="{% static 'footer.png' %}" class="footer-image">
     </footer>
 

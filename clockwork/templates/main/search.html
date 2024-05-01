@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    {% if message %}
+            <p>{{ message }}</p>
+        {% else %}
+            <div class="container">
+                {% for p in results %}
+                <center>
+                    <div class="card">
+                        <a href="{% url 'showcase:product' p_slug=p.slug %}" class="product-link">
+                            <img src="{{ p.product_images.first.image.url }}" alt="Product Image" class="product-image">
+                            <p class="price">{{ p.price }} ₽</p></a>
+                        <div class="card-body">
+                            <a href="{% url 'showcase:brand' brand=p.brand %}">
+                                <p class="brand">{{ p.brand }}</p></a>
+                            <h2>{{ p.name }}</h2>
+                        </div>
+                    </div>
+                </center>
+                {% endfor %}
+            </div>
+        {% endif %}
+{% endblock %}
+

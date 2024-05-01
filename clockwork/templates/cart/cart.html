@@ -5,18 +5,27 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Total: {{ total_price }} ₽</h1>
-    <ul>
-        {% for item in cart_items %}
-            <div class="card">
-                <a href="{% url 'showcase:product' p_slug=item.product.slug %}">
-                        <img src="{{ item.product.product_images.first.image.url }}" alt="Product Image" class="product-image"></a>
-                <p>{{ item.product.brand }} {{ item.product.name }} - {{ item.quantity }} x {{ item.product.price }} ₽</p>
-                <form action="{% url 'cart:cart_remove' item.product.id %}" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="Remove from cart">
-                </form>
+    <div class="cart">
+        <div class="cart-items">
+            <h1>Total: {{ total_price }} ₽</h1>
+            <ul>
+                {% for item in cart_items %}
+                    <div class="card">
+                        <a href="{% url 'showcase:product' p_slug=item.product.slug %}">
+                            <img src="{{ item.product.product_images.first.image.url }}" alt="Product Image" class="product-image"></a>
+                        <p>{{ item.product.brand }} {{ item.product.name }} - {{ item.quantity }} x {{ item.product.price }} ₽</p>
+                        <form action="{% url 'cart:cart_remove' item.product.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="Remove from cart">
+                        </form>
+                    </div>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if has_items %}
+            <div class="cart-summary">
+                <button type="button">Payment</button>
             </div>
-        {% endfor %}
-    </ul>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -1,11 +1,15 @@
 header {
     background-color: white;
     position: fixed;
+    margin-right: 20px;
     top: 0px;
     z-index: 1000;
     width: 100%;
-    height: 60px;
+    height: 80px;
     font-family: Arial, sans-serif;
+}
+
+.header-menu {
     text-align: right;
 }
 
@@ -15,32 +19,38 @@ header {
 }
 
 aside {
-    width: 200px; /* Ширина сайдбара */
-    height: 100%; /* Высота сайдбара, чтобы он занимал всю высоту экрана */
-    position: fixed; /* Фиксированная позиция, чтобы сайдбар оставался видимым при прокрутке */
-    margin-top: 0px; /* Положение сверху */
-    left: 0; /* Положение слева */
-    background-color: #f7fdff; /* Цвет фона сайдбара */
-    padding: 20px; /* Отступы внутри сайдбара */
-    box-sizing: border-box; /* Учитывать padding внутри заданной ширины */
+    width: 200px;
+    height: 100%;
+    position: fixed;
+    margin-top: 0px;
+    left: 0;
+    background-color: #f7fdff;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 main {
-    margin-top: 20px;
+    margin-top: 40px;
     margin-bottom: 100px;
-    margin-left: 220px; /* Ширина сайдбара плюс отступ между сайдбаром и основным контентом */
-    padding: 20px; /* Отступы внутри основного контента */
-    box-sizing: border-box; /* Учитывать padding внутри заданной ширины */
+    margin-left: 220px;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 footer {
     background-color: white;
-    position: fixed;
+    display: flex;
     bottom: 0px;
-    margin-left: 220px;
+    margin-left: 400px;
     width: auto;
     height: 100px;
-    text-align: center;
+    text-align: right;
+}
+
+.footer-text {
+    color: #e2e2e2;
+    font-style: italic;
+    font-size: 20px
 }
 
 .footer-image {
@@ -98,7 +108,7 @@ footer {
 }
 
 .product_card {
-    flex: 1; /* Занимает все доступное пространство в строке */
+    flex: 1;
     margin-left: 20px;
     border: 1px solid #e8f5fa;
     border-radius: 8px;
@@ -162,4 +172,36 @@ div.background {
     height: auto%;
 }
 
+.cart {
+    display: flex;
+    justify-content: space-between; /* Распределение блоков по ширине */
+}
 
+.cart-items {
+    flex-grow: 1; /* Позволяет контейнеру растягиваться, чтобы занять доступное пространство */
+}
+
+.cart-summary {
+    flex-shrink: 0; /* Запрещает уменьшение контейнера в размере */
+}
+
+.cart-items ul {
+    list-style-type: none; /* Убирает маркеры у списка товаров */
+    padding: 0; /* Убирает отступы у списка товаров */
+}
+
+.cart-items .card {
+    margin-bottom: 20px; /* Отступ между карточками товаров */
+}
+
+.cart-summary button {
+    padding: 10px 20px; /* Размеры кнопки оплаты */
+    background-color: #007bff; /* Цвет фона кнопки */
+    color: red; /* Цвет текста кнопки */
+    border: none; /* Убирает границы кнопки */
+    cursor: pointer; /* Курсор при наведении */
+}
+
+.cart-summary button:hover {
+    background-color: #0056b3; /* Цвет фона кнопки при наведении */
+}

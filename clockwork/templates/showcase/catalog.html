@@ -8,7 +8,8 @@
 
 <div class="container">
 
-    {% for p in goods %}<center>
+    {% for p in goods %}
+    <center>
         <div class="card">
             <a href="{% url 'showcase:product' p_slug=p.slug %}" class="product-link">
                 <img src="{{ p.product_images.first.image.url }}" alt="Product Image" class="product-image">
@@ -18,7 +19,8 @@
                     <p class="brand">{{ p.brand }}</p></a>
                 <h2>{{ p.name }}</h2>
             </div>
-        </div></center>
+        </div>
+    </center>
     {% endfor %}
 
 </div>
