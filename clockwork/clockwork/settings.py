@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'main',
     'cart',
     'showcase',
-    'users',
+    # 'users',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'cart.middleware.CartLoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'clockwork.urls'

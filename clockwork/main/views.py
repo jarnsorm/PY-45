@@ -8,6 +8,7 @@ def search_view(request):
     query = request.GET.get('q')
     results = Products.objects.filter(
         Q(name__icontains=query) |
+        Q(brand__icontains=query) |
         Q(description__icontains=query) |
         Q(category__name__icontains=query)
     )
