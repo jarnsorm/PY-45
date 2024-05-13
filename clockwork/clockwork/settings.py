@@ -38,10 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+    'rest_framework_jwt',
+
+    'accounts',
     'main',
     'cart',
     'showcase',
-    # 'users',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +142,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # BACKEND для хранения сеансов
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 CART_SESSION_ID = 'cart'
+
+AUTH_USER_MODEL = 'accounts.Account'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ],
+}
+
+JWT_AUTH = {
+    'JWT_SECRET_KEY': 'hjbFHVBhfvbfHBBhvbfere345bhbfldsvHGff56--adf',
+    'JWT_ALGORITHM': 'HS256',
+}

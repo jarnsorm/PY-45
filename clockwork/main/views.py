@@ -1,6 +1,5 @@
 from django.db.models import Q
 from django.shortcuts import render
-
 from showcase.models import Products
 
 

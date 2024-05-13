@@ -9,18 +9,12 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <link rel="stylesheet" href="{% static 'background.css' %}">
-    <script>
-        function goBack() {
-        window.history.back();
-        }
-    </script>
 </head>
 
 <body>
    <header>
     <ul>
-        <li style="display: inline-block; vertical-align: middle; text-align: left;">
+        <li style="display: inline-block; vertical-align: bottom; text-align: left;">
             <form action="{% url 'main:search' %}" method="get">
                 <input type="text" name="q" placeholder="Search...">
                 <button type="submit">Search</button>
@@ -28,7 +22,9 @@
         </li>
         <div style="vertical-align: top; text-align: right;">
         <li style="display: inline-block;">
-            <img src="{% static 'account.png' %}" alt="Account" class="header-image">
+            <a href="{% url 'accounts:select' %}">
+                <img src="{% static 'account.png' %}" alt="Account" class="header-image">
+            </a>
         </li>
         <li style="display: inline-block;">
             <a href="{% url 'cart:cart_detail' %}">
@@ -49,27 +45,27 @@
                 <img src="{% static 'git.png' %}" alt="GitHub" class="header-image">
             </a>
         </li>
-        <li style="display: inline-block;">
-            <a href="{% url 'admin:index' %}">
-                <img src="{% static 'dev.png' %}" alt="-Dev-" class="header-image">
-            </a>
-        </li>
         </div>
     </ul>
-</header>
+    </header>
 
     <aside>
         <div class="container-menu">
             <button onclick="history.back()">Back</button>
             <div class="menu">
-                <a href="/">Main</a></div>
-            <br>
-            <span>Collections</span>
-            {% for c in collection %}
-                <div class="menu">
-                    <a href="{% url 'showcase:collection' col_slug=c.slug %}">{{ c.name }}</a>
-                </div>
-            {% endfor %}
+                <u>
+                    <a href="/">
+                        <div class="menu-button">All products</div>
+                    </a>
+                {% for c in collection %}
+                    <u>
+                        <a href="{% url 'showcase:collection' col_slug=c.slug %}">
+                            <div class="menu-button">{{ c.name }}</div>
+                        </a>
+                    </u>
+                {% endfor %}
+                </u>
+            </div>
         </div>
        <div class="viewed_card">
     <p>Last viewed:</p>

@@ -2,7 +2,6 @@ from showcase.models import Products
 from django.views.generic import ListView, DetailView, TemplateView
 
 
-
 class Catalog(ListView):
     model = Products
     template_name = 'showcase/catalog.html'
@@ -93,5 +92,5 @@ class Contact(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Contact'
-        context['content'] = {'ref': 'https://github.com/jarnsorm', 'kword': 'My GitHub profile'}
+        context['content'] = {'ref': 'https://github.com/jarnsorm', 'kword': 'My GitHub accounts'}
         return context

@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.views import View
 from django.views.generic import TemplateView
-
 from showcase.models import Products
 from .forms import CartAddProductForm
 
