@@ -31,19 +31,10 @@ def register(request):
             raw_password = form.cleaned_data.get('password1')
             user.set_password(raw_password)
             user.save()
-            print("Пароль:", raw_password)
-
-            # Проверяем, что учетные данные пользователя правильно передаются
-            print("Email пользователя:", user.email)
-            print("Пользователь:", user.username)
-
-            # Попробуем аутентифицировать пользователя после регистрации
             user = authenticate(request, username=user.username, password=raw_password)
             if user is not None:
-                auth_login(request, user)  # Используем auth_login для аутентификации пользователя
+                auth_login(request, user)
                 return redirect(reverse('showcase:catalog'))
-            else:
-                print('Аутентификация не удалась')
     else:
         form = RegistrationForm()
     return render(request, 'registration/register.html', {'form': form})
@@ -59,8 +50,6 @@ def login_view(request):
             if user is not None:
                 auth_login(request, user)
                 return redirect(reverse('showcase:catalog'))
-            else:
-                print(username, password)
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})

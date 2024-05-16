@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
     {{ title }}
 {% endblock %}
@@ -12,7 +12,11 @@
     <center>
         <div class="card">
             <a href="{% url 'showcase:product' p_slug=p.slug %}" class="product-link">
-                <img src="{{ p.product_images.first.image.url }}" alt="Product Image" class="product-image">
+                {% if p.product_images.first %}
+                    <img src="{{ p.product_images.first.image.url }}" alt="Product Image" class="product-image">
+                {% else %}
+                    <img src="{% static 'nophoto.png' %}" alt="No Photo" class="product-image">
+                {% endif %}
             </a>
             <div class="card-body">
                 <a href="{% url 'showcase:brand' brand=p.brand %}">

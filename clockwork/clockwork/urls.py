@@ -18,10 +18,13 @@ from django.contrib import admin
 from django.urls import path, include, URLResolver
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import views as auth_views
+
+from drf.views import ProductsAPIView
 
 urlpatterns: list[URLResolver] = [
     path('admin/', admin.site.urls),
+    path('api/v1/products/', ProductsAPIView.as_view()),
+    path('api/v1/drf-auth/', include('rest_framework.urls')),
     path('search/', include('main.urls')),
     path('', include('showcase.urls')),
     path('accounts/', include('accounts.urls')),
