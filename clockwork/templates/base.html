@@ -86,9 +86,11 @@
                 </li>
             </div>
         </ul>
-        <center>
-            <h1>{{title}}</h1>
-        </center>
+        {% if title != "ClockWork" %}
+            <center>
+                <h1>{{title}}</h1>
+            </center>
+        {% endif %}
         {% block content %}{% endblock %}
     </main>
     <footer>

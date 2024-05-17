@@ -26,7 +26,10 @@
         </div>
     </center>
     {% endfor %}
-
 </div>
-
+<div id="pagination" style="margin-top: 30px; text-align: center;">
+    <button onclick="previousPage()">Previous</button>
+    <button onclick="nextPage()">Next</button>
+</div>
+<script src="{% static 'js/script.js' %}"></script>
 {% endblock %}

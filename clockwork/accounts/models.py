@@ -48,8 +48,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
     )
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     def update_last_login(self):
         self.last_login = timezone.now()

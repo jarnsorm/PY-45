@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    # 'rest_framework_jwt',
 
     'accounts',
     'main',
@@ -147,14 +146,7 @@ CART_SESSION_ID = 'cart'
 
 AUTH_USER_MODEL = 'accounts.Account'
 
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-#     ],
-# }
-
-# JWT_AUTH = {
-#     'JWT_SECRET_KEY': 'hjbFHVBhfvbfHBBhvbfere345bhbfldsvHGff56--adf',
-#     'JWT_ALGORITHM': 'HS256',
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
