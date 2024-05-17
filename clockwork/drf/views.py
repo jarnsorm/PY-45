@@ -1,27 +1,41 @@
-from rest_framework import generics
-from drf.serializers import ProductsSerializer
+from rest_framework import viewsets, status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from drf.models import DRFCart, CartItem
+from drf.permissions import IsAdminOrReadOnly
+from drf.serializers import ProductsSerializer, CartSerializer, AddCartItemSerializer
 from showcase.models import Products
 
 
-# апишечка для просмотра всех товаров и добавления новых
-class ProductsAPIList(generics.ListCreateAPIView):
+class ProductsAPIViewset(viewsets.ModelViewSet):
     queryset = Products.objects.all()
     serializer_class = ProductsSerializer
+    permission_classes = (IsAdminOrReadOnly,)
 
 
-# апишечка для просмотра товара по id
-class ProductsAPIRetrieve(generics.RetrieveAPIView):
-    queryset = Products.objects.all()
-    serializer_class = ProductsSerializer
+class CartView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        cart, created = DRFCart.objects.get_or_create(user=request.user)
+        serializer = CartSerializer(cart)
+        return Response(serializer.data)
 
 
-# апишечка для обновления товара по id
-class ProductsAPIUpdate(generics.UpdateAPIView):
-    queryset = Products.objects.all()
-    serializer_class = ProductsSerializer
+class AddToCartView(APIView):
+    permission_classes = [IsAuthenticated]
 
-
-# апишечка для просмотра, изменения и удаления товара по id
-class ProductsAPICRUD(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Products.objects.all()
-    serializer_class = ProductsSerializer
+    def post(self, request):
+        cart, created = DRFCart.objects.get_or_create(user=request.user)
+        serializer = AddCartItemSerializer(data=request.data)
+        if serializer.is_valid():
+            product = serializer.validated_data['product']
+            quantity = serializer.validated_data['quantity']
+            cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product, defaults={'quantity': quantity})
+            if not created:
+                cart_item.quantity += quantity
+                cart_item.save()
+            return Response({'status': 'item added'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

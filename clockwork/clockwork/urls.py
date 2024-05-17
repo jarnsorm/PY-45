@@ -18,15 +18,17 @@ from django.contrib import admin
 from django.urls import path, include, URLResolver
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework import routers
+from drf.views import ProductsAPIViewset, CartView, AddToCartView
 
-from drf.views import ProductsAPIList, ProductsAPIUpdate, ProductsAPICRUD, ProductsAPIRetrieve
+router = routers.DefaultRouter()
+router.register(r'products', ProductsAPIViewset)
 
 urlpatterns: list[URLResolver] = [
     path('admin/', admin.site.urls),
-    path('api/v1/products/', ProductsAPIList.as_view()),
-    path('api/v1/product/<int:pk>/', ProductsAPIRetrieve.as_view()),
-    path('api/v1/product/update/<int:pk>/', ProductsAPIUpdate.as_view()),
-    path('api/v1/product/crud/<int:pk>/', ProductsAPICRUD.as_view()),
+    path('api/v1/', include(router.urls)),
+    path('api/v1/cart/', CartView.as_view(), name='cart'),
+    path('api/v1/cart/add/', AddToCartView.as_view(), name='add_to_cart'),
     path('api/v1/drf-auth/', include('rest_framework.urls')),
     path('search/', include('main.urls')),
     path('', include('showcase.urls')),
