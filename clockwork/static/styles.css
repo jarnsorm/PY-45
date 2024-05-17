@@ -1,11 +1,10 @@
 header {
     background-color: white;
     position: fixed;
-    margin-right: 20px;
     top: 0px;
     z-index: 1000;
     width: 100%;
-    height: 80px;
+    height: 40px;
     font-family: Arial, sans-serif;
 }
 

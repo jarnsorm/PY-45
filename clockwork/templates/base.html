@@ -12,41 +12,13 @@
 </head>
 
 <body>
-   <header>
-    <ul>
-        <li style="display: inline-block; vertical-align: bottom; text-align: left;">
+    <header>
+        <li style="display: inline-block; vertical-align: bottom; text-align: left; margin-top: 10px">
             <form action="{% url 'main:search' %}" method="get">
                 <input type="text" name="q" placeholder="Search...">
                 <button type="submit">Search</button>
             </form>
         </li>
-        <div style="vertical-align: top; text-align: right;">
-        <li style="display: inline-block;">
-            <a href="{% url 'accounts:select' %}">
-                <img src="{% static 'account.png' %}" alt="Account" class="header-image">
-            </a>
-        </li>
-        <li style="display: inline-block;">
-            <a href="{% url 'cart:cart_detail' %}">
-            {% if cart.total_quantity > 0 %}
-                <img src="{% static 'cart_upd.png' %}" alt="Cart" class="header-image">
-            {% else %}
-                <img src="{% static 'cart.png' %}" alt="Cart" class="header-image">
-            {% endif %}
-            </a>
-        </li>
-        <li style="display: inline-block;">
-            <a href="{% url 'showcase:about' %}">
-                <img src="{% static 'about.png' %}" alt="AboutUs" class="header-image">
-            </a>
-        </li>
-        <li style="display: inline-block;">
-            <a href="https://github.com/jarnsorm">
-                <img src="{% static 'git.png' %}" alt="GitHub" class="header-image">
-            </a>
-        </li>
-        </div>
-    </ul>
     </header>
 
     <aside>
@@ -86,6 +58,34 @@
     </aside>
 
     <main>
+        <ul>
+            <div style="vertical-align: top; text-align: right;">
+                <li style="display: inline-block;">
+                    <a href="{% url 'accounts:select' %}">
+                        <img src="{% static 'account.png' %}" alt="Account" class="header-image">
+                    </a>
+                </li>
+                <li style="display: inline-block;">
+                    <a href="{% url 'cart:cart_detail' %}">
+                    {% if cart.total_quantity > 0 %}
+                        <img src="{% static 'cart_upd.png' %}" alt="Cart" class="header-image">
+                    {% else %}
+                        <img src="{% static 'cart.png' %}" alt="Cart" class="header-image">
+                    {% endif %}
+                    </a>
+                </li>
+                <li style="display: inline-block;">
+                    <a href="{% url 'showcase:about' %}">
+                        <img src="{% static 'about.png' %}" alt="AboutUs" class="header-image">
+                    </a>
+                </li>
+                <li style="display: inline-block;">
+                    <a href="https://github.com/jarnsorm">
+                        <img src="{% static 'git.png' %}" alt="GitHub" class="header-image">
+                    </a>
+                </li>
+            </div>
+        </ul>
         <center>
             <h1>{{title}}</h1>
         </center>
