@@ -18,20 +18,16 @@ from django.contrib import admin
 from django.urls import path, include, URLResolver
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework import routers
-from drf.views import ProductsAPIViewset, CartView, AddToCartView
-
-router = routers.DefaultRouter()
-router.register(r'products', ProductsAPIViewset)
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 urlpatterns: list[URLResolver] = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include(router.urls)),
-    path('api/v1/cart/', CartView.as_view(), name='cart'),
-    path('api/v1/cart/add/', AddToCartView.as_view(), name='add_to_cart'),
-    path('api/v1/drf-auth/', include('rest_framework.urls')),
+    path('api/v1/', include('drf.urls')),
     path('search/', include('main.urls')),
     path('', include('showcase.urls')),
     path('accounts/', include('accounts.urls')),
     path('cart/', include('cart.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

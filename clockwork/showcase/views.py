@@ -1,4 +1,4 @@
-from showcase.models import Products
+from showcase.models import Products, Brands
 from django.views.generic import ListView, DetailView, TemplateView
 
 
@@ -15,6 +15,7 @@ class Catalog(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'ClockWork'
         context['col_selected'] = 0
+        context['brands'] = Brands.objects.all()
         return context
 
 
@@ -28,10 +29,11 @@ class Collection(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = str(f"{context['goods'][0].brand} {context['goods'][0].category}")
         context['col_selected'] = context['goods'][0].category
+        context['brands'] = Brands.objects.all()
         return context
 
     def get_queryset(self):
-        return Products.objects.filter(category__slug=self.kwargs['col_slug']).order_by('?')
+        return Products.objects.filter(category__slug=self.kwargs['col_slug'])
 
 
 class Brand(ListView):
@@ -44,10 +46,11 @@ class Brand(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = str(context['goods'][0].brand)
         context['brand_selected'] = context['goods'][0].brand
+        context['brands'] = Brands.objects.all()
         return context
 
     def get_queryset(self):
-        return Products.objects.filter(brand=self.kwargs['brand'])
+        return Products.objects.filter(brand__slug=self.kwargs['brand_slug'])
 
 
 class Product(DetailView):
@@ -59,6 +62,7 @@ class Product(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = f"{context['product'].brand} {context['product'].name}"
+        context['brands'] = Brands.objects.all()
         return context
 
     def get_queryset(self):
@@ -71,8 +75,6 @@ class Product(DetailView):
             viewed_products.append(product_slug)
         viewed_products = viewed_products[-3:]
         request.session['viewed_products'] = viewed_products
-        # product = get_object_or_404(Products, slug=product_slug)
-        # cart_product_form = CartAddProductForm()
         return super().get(request, *args, **kwargs)
 
 

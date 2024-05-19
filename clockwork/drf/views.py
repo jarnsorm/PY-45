@@ -1,4 +1,6 @@
-from rest_framework import viewsets, status
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import viewsets, status, generics
+from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,7 +14,21 @@ from showcase.models import Products
 class ProductsAPIViewset(viewsets.ModelViewSet):
     queryset = Products.objects.all()
     serializer_class = ProductsSerializer
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    ordering_fields = ['name', 'price', 'category', 'brand']
+    ordering = ['name']
+    filterset_fields = ['category', 'brand']
     permission_classes = (IsAdminOrReadOnly,)
+
+
+# class ProductsListView(generics.ListAPIView):
+#     queryset = Products.objects.all()
+#     serializer_class = ProductsSerializer
+#     filter_backends = [DjangoFilterBackend, OrderingFilter]
+#     ordering_fields = ['name', 'price', 'category', 'brand']
+#     ordering = ['name']
+#
+#     filterset_fields = ['category', 'brand']
 
 
 class CartView(APIView):

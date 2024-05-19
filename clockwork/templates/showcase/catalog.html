@@ -19,8 +19,8 @@
                 {% endif %}
             </a>
             <div class="card-body">
-                <a href="{% url 'showcase:brand' brand=p.brand %}">
-                    <p class="brand">{{ p.brand }}</p></a>
+                <a href="{% url 'showcase:brand' brand_slug=p.brand.slug %}">
+                    <p class="brand">{{ p.brand.name }}</p></a>
                 <span>{{ p.name }}</span>
             </div>
         </div>

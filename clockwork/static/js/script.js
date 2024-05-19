@@ -30,3 +30,4 @@ var items = document.querySelectorAll('#container > div');
 
     // Показываем первую страницу при загрузке
     showPage(currentPage);
+
